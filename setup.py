@@ -2,7 +2,7 @@ from setuptools import setup
 from errbit_reporter.version import VERSION
 
 
-setup(name='Errbit Reporter',
+setup(name='errbit-reporter',
       version=VERSION,
       description='Errbit Client',
       author='Dylan Thacker-Smith',
