@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hash>
+  <_id>87186dda0c1d88569a171698</_id>
+  <app-id>ff283e00de6339078233c722</app-id>
+  <backtrace type="array">
+    <backtrace>
+      <file>test.py</file>
+      <method>broken</method>
+      <number>8</number>
+    </backtrace>
+  </backtrace>
+  <created-at type="datetime">2014-07-14T10:50:02-04:00</created-at>
+  <err-id>7eafc85735047f2e5c9272b7</err-id>
+  <kind nil="true"/>
+  <message>ValueError: invalid literal for int() with base 10: 'a'</message>
+  <notifier>
+    <name>Python Errbit Reporter</name>
+    <version>0.0.1</version>
+    <url>https://github.com/dylanahsmith/python-errbit-reporter</url>
+  </notifier>
+  <request>
+    <url>
+    </url>
+    <component>unknown</component>
+    <action nil="true"/>
+    <params>
+    </params>
+    <session>
+    </session>
+    <cgi-data>
+    </cgi-data>
+  </request>
+  <server-environment>
+    <project-root>/usr/local/src/errbit-reporter-python</project-root>
+    <environment-name>production</environment-name>
+    <hostname>errbit.example.com</hostname>
+  </server-environment>
+  <updated-at type="datetime">2014-07-14T10:50:02-04:00</updated-at>
+  <problem-id>4886aba098109edbeb67a7f0</problem-id>
+</hash>
