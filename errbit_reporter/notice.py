@@ -13,24 +13,47 @@ class Notice(object):
     def __init__(self, config, error_class, error_message, backtrace=None):
         self.config = config
 
-        if isinstance(error_class, type):
-            error_class = error_class.__name__
         self.error_class = error_class
-        if isinstance(error_message, Exception):
-            error_message = error_class + ": " + str(error_message)
         self.error_message = error_message
-        if isinstance(backtrace, types.TracebackType):
-            backtrace = traceback.extract_tb(backtrace)
-        elif backtrace is None:
-            backtrace = sys.extract_stack()
         self.backtrace = backtrace
-
         self.request_url = None
         self.component = None
         self.action = None
         self.params = {}
         self.session = {}
         self.cgi_data = {}
+
+    @property
+    def error_class(self):
+        return self._error_class
+
+    @error_class.setter
+    def error_class(self, value):
+        if isinstance(value, type):
+            value = value.__name__
+        self._error_class = value
+
+    @property
+    def error_message(self):
+        return self._error_message
+
+    @error_message.setter
+    def error_message(self, value):
+        if isinstance(value, Exception):
+            value = value.__class__.__name__ + ": " + str(value)
+        self._error_message = value
+
+    @property
+    def backtrace(self):
+        return self._backtrace
+
+    @backtrace.setter
+    def backtrace(self, value):
+        if isinstance(value, types.TracebackType):
+            value = traceback.extract_tb(value)
+        elif value is None:
+            value = traceback.extract_stack()
+        self._backtrace = value
 
     @classmethod
     def from_exception(cls, config, exc_info=None):
