@@ -48,7 +48,7 @@ class ClientTest(unittest.TestCase):
 
     def test_notify(self):
         response_filename = os.path.join(os.path.dirname(__file__), 'fixtures', 'response.xml')
-        with open(response_filename) as f:
+        with open(response_filename, 'rb') as f:
             body = f.read()
         TestHandler.response = FakeResponse(body)
 

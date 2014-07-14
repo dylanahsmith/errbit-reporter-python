@@ -58,7 +58,7 @@ class NoticeTest(unittest.TestCase):
 
     def test_metadata_from_response(self):
         fixture_path = os.path.join(os.path.dirname(__file__), 'fixtures', 'response.xml')
-        with open(fixture_path) as f:
+        with open(fixture_path, 'rb') as f:
             notice_xml = f.read()
         metadata = Metadata.from_notice_xml(notice_xml)
         self.assertEqual(metadata.id, '87186dda0c1d88569a171698')
