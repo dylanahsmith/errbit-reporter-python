@@ -15,6 +15,8 @@ class Notice(object):
 
         self.error_class = error_class
         self.error_message = error_message
+        if backtrace is None:
+            backtrace = traceback.extract_stack()
         self.backtrace = backtrace
         self.request_url = None
         self.component = None
@@ -52,7 +54,7 @@ class Notice(object):
         if isinstance(value, types.TracebackType):
             value = traceback.extract_tb(value)
         elif value is None:
-            value = traceback.extract_stack()
+            value = []
         self._backtrace = value
 
     @classmethod
