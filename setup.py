@@ -5,6 +5,7 @@ exec(open('errbit_reporter/version.py').read())
 setup(name='errbit-reporter',
       version=VERSION,  # noqa
       description='Errbit Client',
+      long_description=open('README.rst').read(),
       author='Dylan Thacker-Smith',
       author_email='Dylan.Smith@shopify.com',
       url='https://github.com/dylanahsmith/errbit-reporter-python',
