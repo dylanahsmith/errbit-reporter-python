@@ -75,7 +75,7 @@ but exc_info can also be passed as the first parameter, and additional
 context can be provided using the same keyword arguments as
 notify_on_exception.
 
-In a distributed system (e.g. [Spark](https://spark.apache.org/))
+In a distributed system (e.g. `Spark <https://spark.apache.org/>`_)
 it is useful to be able to specify the backtrace manually. For
 example, this the backtrace could consist of local and remote
 processes stack trace, even if the remote processes is written in
