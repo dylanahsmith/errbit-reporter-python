@@ -1,5 +1,5 @@
 import unittest
-from errbit_reporter.config import Configuration
+from errbit_reporter import Configuration
 
 
 class ConfigTest(unittest.TestCase):

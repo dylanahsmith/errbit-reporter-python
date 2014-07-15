@@ -1,6 +1,6 @@
 from six.moves import urllib
 
-from errbit_reporter.notice import Notice, Metadata
+from errbit_reporter import Notice, NoticeMetadata
 
 
 class Client(object):
@@ -25,4 +25,4 @@ class Client(object):
         request.add_header('Content-Type', 'text/xml')
         request.add_header('Accept', 'text/xml, application/xml')
         response = urllib.request.urlopen(request, timeout=timeout)
-        return Metadata.from_notice_xml(response.read())
+        return NoticeMetadata.from_notice_xml(response.read())

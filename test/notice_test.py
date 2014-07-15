@@ -4,8 +4,7 @@ import traceback
 import unittest
 from xml.etree import cElementTree as ET
 
-from errbit_reporter.config import Configuration
-from errbit_reporter.notice import Notice, Metadata
+from errbit_reporter import Configuration, Notice, NoticeMetadata
 
 
 class NoticeTest(unittest.TestCase):
@@ -60,7 +59,7 @@ class NoticeTest(unittest.TestCase):
         fixture_path = os.path.join(os.path.dirname(__file__), 'fixtures', 'response.xml')
         with open(fixture_path, 'rb') as f:
             notice_xml = f.read()
-        metadata = Metadata.from_notice_xml(notice_xml)
+        metadata = NoticeMetadata.from_notice_xml(notice_xml)
         self.assertEqual(metadata.id, '87186dda0c1d88569a171698')
         self.assertEqual(metadata.app_id, 'ff283e00de6339078233c722')
         self.assertEqual(metadata.err_id, '7eafc85735047f2e5c9272b7')

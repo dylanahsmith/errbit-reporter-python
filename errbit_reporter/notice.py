@@ -129,7 +129,7 @@ class Notice(object):
             parent.text = str(value)
 
 
-class Metadata(object):
+class NoticeMetadata(object):
     def __init__(self, id, err_id, problem_id, app_id, created_at, updated_at):
         self.id = id
         self.err_id = err_id

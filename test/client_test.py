@@ -5,9 +5,7 @@ import unittest
 import six
 from six.moves import urllib
 
-from errbit_reporter.config import Configuration
-from errbit_reporter.client import Client
-from errbit_reporter.client import Notice
+from errbit_reporter import Configuration, Client, Notice
 
 
 class FakeResponse(object):
