@@ -6,6 +6,13 @@ from errbit_reporter import Notice, NoticeMetadata
 
 
 class Client(object):
+    """Errbit client used to send the notice to errbit
+
+    Parameters
+    ----------
+    config : errbit_reporter.Configuration
+        Used to build the notice and its errbit_url is used to send the notice.
+    """
 
     def __init__(self, config):
         self.config = config
@@ -50,6 +57,34 @@ class Client(object):
 
     def notify(self, exc_info=None, request_url=None, component=None,
                action=None, params={}, session={}, cgi_data={}, timeout=None):
+        """Notify errbit of an exception
+
+        Parameters
+        ----------
+        exc_info : (type, Exception, traceback), optional
+            Information from sys.exc_info() to notify errbit about (the default
+            is the exception currently being handled)
+        request_url : str, optional
+            The url field that will be shown by errbit on the error page
+        component : str, optional
+            The 1st part of the *where* field on the error page in errbit
+        action : str, optional
+            The 2nd part of the *where* field on the error page in errbit
+        params : dict of str, {str, list, dict} pairs, optional
+            The data shown in the Parameters tab with the error in errbit.
+        session : dict of str, {str, list, dict} pairs, optional
+            The data shown in the Session tab with the error in errbit.
+        cgi_data : dict of str, {str, list, dict} pairs, optional
+            The data shown in the Environment tab with the error in errbit.
+        timeout : int, optional
+            The timeout in seconds for the request to errbit (the default is no
+            timeout)
+
+        Returns
+        -------
+        errbit_reporter.NoticeMetadata
+            Identifiers to find the notice, error or problem in errbit
+        """
         notice = Notice.from_exception(self.config, exc_info)
         notice.request_url = request_url
         notice.component = component
@@ -60,6 +95,18 @@ class Client(object):
         return self.send_notice(notice, timeout=timeout)
 
     def send_notice(self, notice, timeout=None):
+        """Send a Notice to errbit for an error
+
+        Parameters
+        ----------
+        notice : errbit_reporter.Notice
+            The notice to send to errbit that describes the error
+        timeout : int, optional
+            The timeout in seconds for the request to errbit (the default is no
+            timeout)
+        """
+        if not self.config.errbit_url:
+            return None
         url = urllib.parse.urljoin(self.config.errbit_url, "/notifier_api/v2/notices/")
         request = urllib.request.Request(url, notice.serialize())
         request.add_header('Content-Type', 'text/xml')

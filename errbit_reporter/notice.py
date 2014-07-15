@@ -9,6 +9,8 @@ from six.moves import urllib
 
 
 class Notice(object):
+    """The description of an exception that can be sent to errbit"""
+
     INVALID_TAG_CHARS = re.compile("[^a-zA-Z0-9_-]")
 
     def __init__(self, config, error_class, error_message, backtrace=None):
@@ -60,12 +62,14 @@ class Notice(object):
 
     @classmethod
     def from_exception(cls, config, exc_info=None):
+        "Creates a notice from an exception"
         if exc_info is None:
             exc_info = sys.exc_info()
         exc_type, exc_value, exc_tb = exc_info
         return cls(config, *exc_info)
 
     def serialize(self):
+        "Serialize the notice to xml which errbit accepts for notice creation"
         root = ET.Element('notice', version="2.4")
 
         ET.SubElement(root, 'api-key').text = self.config.api_key
@@ -131,6 +135,11 @@ class Notice(object):
 
 
 class NoticeMetadata(object):
+    """Metadata that returned by errbit that identifies a notice
+
+    Can be used to get the url to see the error page for the notice in errbit.
+    """
+
     def __init__(self, config, id, err_id, problem_id, app_id, created_at, updated_at):
         self.config = config
         self.id = id
@@ -142,6 +151,7 @@ class NoticeMetadata(object):
 
     @classmethod
     def from_notice_xml(cls, config, body):
+        "Extracts the metadata from the response body of a notify request"
         tree = ET.fromstring(body)
 
         id = tree.findtext('./_id')
@@ -155,5 +165,6 @@ class NoticeMetadata(object):
 
     @property
     def url(self):
+        "Returns the url that shows the notice on errbit"
         path = "/apps/%s/errs/%s/notices/%s" % (self.app_id, self.problem_id, self.id)
         return urllib.parse.urljoin(self.config.errbit_url, path)
