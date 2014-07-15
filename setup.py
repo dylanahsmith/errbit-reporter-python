@@ -1,9 +1,9 @@
 from setuptools import setup
-from errbit_reporter.version import VERSION
 
+exec(open('errbit_reporter/version.py').read())
 
 setup(name='errbit-reporter',
-      version=VERSION,
+      version=VERSION,  # noqa
       description='Errbit Client',
       author='Dylan Thacker-Smith',
       author_email='Dylan.Smith@shopify.com',
