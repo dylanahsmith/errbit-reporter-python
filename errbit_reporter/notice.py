@@ -5,6 +5,7 @@ import re
 from xml.etree import cElementTree as ET
 
 import six
+from six.moves import urllib
 
 
 class Notice(object):
@@ -130,7 +131,8 @@ class Notice(object):
 
 
 class NoticeMetadata(object):
-    def __init__(self, id, err_id, problem_id, app_id, created_at, updated_at):
+    def __init__(self, config, id, err_id, problem_id, app_id, created_at, updated_at):
+        self.config = config
         self.id = id
         self.err_id = err_id
         self.problem_id = problem_id
@@ -139,7 +141,7 @@ class NoticeMetadata(object):
         self.updated_at = updated_at
 
     @classmethod
-    def from_notice_xml(cls, body):
+    def from_notice_xml(cls, config, body):
         tree = ET.fromstring(body)
 
         id = tree.findtext('./_id')
@@ -149,4 +151,9 @@ class NoticeMetadata(object):
         created_at = tree.findtext('./created-at')
         updated_at = tree.findtext('./updated-at')
 
-        return cls(id, err_id, problem_id, app_id, created_at, updated_at)
+        return cls(config, id, err_id, problem_id, app_id, created_at, updated_at)
+
+    @property
+    def url(self):
+        path = "/apps/%s/errs/%s/notices/%s" % (self.app_id, self.problem_id, self.id)
+        return urllib.parse.urljoin(self.config.errbit_url, path)

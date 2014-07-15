@@ -25,4 +25,4 @@ class Client(object):
         request.add_header('Content-Type', 'text/xml')
         request.add_header('Accept', 'text/xml, application/xml')
         response = urllib.request.urlopen(request, timeout=timeout)
-        return NoticeMetadata.from_notice_xml(response.read())
+        return NoticeMetadata.from_notice_xml(self.config, response.read())

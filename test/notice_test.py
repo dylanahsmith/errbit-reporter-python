@@ -59,10 +59,11 @@ class NoticeTest(unittest.TestCase):
         fixture_path = os.path.join(os.path.dirname(__file__), 'fixtures', 'response.xml')
         with open(fixture_path, 'rb') as f:
             notice_xml = f.read()
-        metadata = NoticeMetadata.from_notice_xml(notice_xml)
+        metadata = NoticeMetadata.from_notice_xml(self.config, notice_xml)
         self.assertEqual(metadata.id, '87186dda0c1d88569a171698')
         self.assertEqual(metadata.app_id, 'ff283e00de6339078233c722')
         self.assertEqual(metadata.err_id, '7eafc85735047f2e5c9272b7')
         self.assertEqual(metadata.problem_id, '4886aba098109edbeb67a7f0')
         self.assertEqual(metadata.created_at, '2014-07-14T10:50:02-04:00')
         self.assertEqual(metadata.updated_at, '2014-07-14T10:50:02-04:00')
+        self.assertEqual(metadata.url, "http://localhost:3000/apps/ff283e00de6339078233c722/errs/4886aba098109edbeb67a7f0/notices/87186dda0c1d88569a171698")
