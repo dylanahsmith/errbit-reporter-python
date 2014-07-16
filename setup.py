@@ -14,6 +14,9 @@ setup(name='errbit-reporter',
       install_requires=[
           'six',
       ],
+      setup_requires=[
+          'sphinx-pypi-upload',
+      ],
       test_suite='test',
       platforms='Any',
       classifiers=[
