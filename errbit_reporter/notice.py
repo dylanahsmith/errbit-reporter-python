@@ -65,6 +65,8 @@ class Notice(object):
         "Creates a notice from an exception"
         if exc_info is None:
             exc_info = sys.exc_info()
+            if exc_info[1] is None:
+                raise ValueError("exc_info is required outside of an exception handler")
         exc_type, exc_value, exc_tb = exc_info
         return cls(config, *exc_info)
 

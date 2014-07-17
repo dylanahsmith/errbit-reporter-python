@@ -42,6 +42,14 @@ class NoticeTest(unittest.TestCase):
         self.assertEqual(notice.error_message, 'ValueError: oops')
         self.assertEqual(notice.backtrace, traceback.extract_tb(exc_tb))
 
+    def test_from_exception_without_exception(self):
+        exc = None
+        try:
+            Notice.from_exception(self.config)
+        except ValueError as e:
+            exc = e
+        self.assertIsInstance(exc, ValueError)
+
     def test_params(self):
         notice = Notice(self.config, 'IndexError', 'list index out of range', [])
         notice.params['id'] = 1
