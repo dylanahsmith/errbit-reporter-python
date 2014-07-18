@@ -29,5 +29,7 @@ class Configuration(object):
         self.notifier_url = 'https://github.com/dylanahsmith/python-errbit-reporter'
 
         self.project_root = project_root or os.getcwd()
+        if not self.project_root.endswith('/'):
+            self.project_root += '/'
         self.environment_name = environment_name
         self.server_name = server_name or socket.gethostname()

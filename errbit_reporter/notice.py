@@ -86,6 +86,8 @@ class Notice(object):
         ET.SubElement(error, 'message').text = self.error_message
         backtrace = ET.SubElement(error, 'backtrace')
         for filename, line_number, function_name, text in reversed(self.backtrace):
+            if filename.startswith(self.config.project_root):
+                filename = "[PROJECT_ROOT]/" + filename[len(self.config.project_root):]
             ET.SubElement(
                 backtrace, 'line', number=str(line_number), file=filename, method=function_name)
 

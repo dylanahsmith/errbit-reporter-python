@@ -82,6 +82,7 @@ class ClientTest(unittest.TestCase):
         self.assertEqual(TestHandler.request.get_full_url(), "http://localhost/notifier_api/v2/notices/")
         self.assertEqual(TestHandler.request.get_method(), "POST")
         filename, line_number, function_name, text = traceback.extract_tb(inner_exc_info[2])[0]
+        filename = filename.replace(os.getcwd(), "[PROJECT_ROOT]")
         top_frame = '<line file="%s" method="%s" number="%d" />' % (filename, function_name, line_number)
         self.assertIn(top_frame.encode('utf-8'), TestHandler.request.data)
 
