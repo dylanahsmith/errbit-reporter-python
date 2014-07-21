@@ -2,6 +2,7 @@ import sys
 import types
 import traceback
 import re
+import os.path
 from xml.etree import cElementTree as ET
 
 import six
@@ -56,6 +57,8 @@ class Notice(object):
     def backtrace(self, value):
         if isinstance(value, types.TracebackType):
             value = traceback.extract_tb(value)
+            value = [(os.path.abspath(filename), lineno, func_name, text)
+                     for filename, lineno, func_name, text in value]
         elif value is None:
             value = []
         self._backtrace = value
